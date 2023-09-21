@@ -6,7 +6,7 @@ package edu.ncsu.csc216.wolf_scheduler.course;
  * 
  * @author David Mond
  */
-public abstract class Activity {
+public abstract class Activity implements Conflict {
 
 	/** Activity's title. */
 	private String title;
@@ -245,6 +245,20 @@ public abstract class Activity {
 		// Return the string result
 		return res;
 	}
+	
+	/**
+	 * Checks to see if there is a conflict.
+	 * @param possibleConflictingActivity Activity that is being checked for a conflict.
+	 * @throws ConflictException Throws an exception if there is a conflict.
+	 */
+	@Override
+	public void checkConflict(Activity possibleConflictingActivity) throws ConflictException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	/** Returns the hash code of whatever is being called with this method.
 	 * @return int Returns the hash code as an integer.
 	 */
