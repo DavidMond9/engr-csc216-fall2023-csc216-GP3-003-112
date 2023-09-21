@@ -6,6 +6,7 @@ package edu.ncsu.csc216.wolf_scheduler.course;
 /**
  * Conflict interface has many methods. It defines what a conflict is where a course or event
  * is overlapped by another course or event in the meeting days or times.
+ * @author David Mond
  */
 public interface Conflict {
 	/**
