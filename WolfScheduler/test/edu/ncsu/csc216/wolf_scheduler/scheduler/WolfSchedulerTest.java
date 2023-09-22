@@ -57,6 +57,7 @@ public class WolfSchedulerTest {
 
 	/**
 	 * Resets course_records.txt for use in other tests.
+	 * @throws Exception If the file is not found.
 	 */
 	@Before
 	public void setUp() throws Exception {
