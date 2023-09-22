@@ -26,7 +26,7 @@ class ConflictExceptionTest {
 	 * Test method for {@link edu.ncsu.csc216.wolf_scheduler.course.ConflictException#ConflictException()}.
 	 */
 	@Test
-	void testConflictException() {
+	public void testConflictException() {
 		ConflictException ce = new ConflictException();
 		assertEquals("Schedule conflict.", ce.getMessage());
 	}

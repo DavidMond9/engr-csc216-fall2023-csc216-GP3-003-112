@@ -253,18 +253,13 @@ public abstract class Activity implements Conflict {
 	 */
 	@Override
 	public void checkConflict(Activity possibleConflictingActivity) throws ConflictException {
-		for(int i = 0; i < possibleConflictingActivity.getMeetingDays().length(); i++) {
-			for(int j = 0; j < this.getMeetingDays().length(); j++) {
-				if((this.getMeetingDays().charAt(j) == possibleConflictingActivity.getMeetingDays().charAt(i)) &&
-						((this.getMeetingDays().charAt(j) != 'A') || (possibleConflictingActivity.getMeetingDays().charAt(i) != 'A'))) {
-					
-					if(possibleConflictingActivity.getStartTime() <= this.getEndTime() && possibleConflictingActivity.getEndTime() >= this.getStartTime()) {
-						throw new ConflictException();
-					}	
-					
-					if(possibleConflictingActivity.getStartTime() <= this.getStartTime() && possibleConflictingActivity.getEndTime() <= this.getStartTime()) {
-						throw new ConflictException();
-					}	
+		String activity1 = possibleConflictingActivity.getMeetingDays();
+		for(int i = 0; i < meetingDays.length(); i++) {
+			for(int j = 0; j < activity1.length(); j++) {
+				if(!"A".equals(meetingDays) && !possibleConflictingActivity.getMeetingDays().equals("A") &&
+						meetingDays.substring(i, i + 1).equals(activity1.substring(j, j + 1)) &&
+						possibleConflictingActivity.getEndTime() >= startTime && possibleConflictingActivity.getStartTime() <= endTime) {
+					throw new ConflictException();
 				}
 			}
 		}

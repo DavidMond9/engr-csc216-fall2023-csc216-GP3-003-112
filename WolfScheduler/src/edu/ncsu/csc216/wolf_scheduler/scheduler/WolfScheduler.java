@@ -129,18 +129,28 @@ public class WolfScheduler {
 						catalog.get(i).getSection().equals(section)) {
 					addedCourse = catalog.get(i);
 					for(int j = 0; j < schedule.size(); j++) {
-						if(schedule.get(j) instanceof Course && schedule.get(j).isDuplicate(addedCourse)) {
-							//if name of course already in schedule, throw exception 
-							throw new IllegalArgumentException("You are already enrolled in " + name);							
+						if(schedule.get(j) instanceof Course) {
+							Course newCourse = (Course) schedule.get(j);
+							if(newCourse.isDuplicate(addedCourse)) {	
+								//if name of course already in schedule, throw exception 
+								throw new IllegalArgumentException("You are already enrolled in " + name);	
+							}
+						}
+						//check for conflict, throw exception if there is a conflict
+						try {
+							addedCourse.checkConflict(schedule.get(j));
+						} 
+						catch(Exception e) {
+							throw new IllegalArgumentException("The course cannot be added due to a conflict.");
 						}
 					}
+					//add course to schedule
+					schedule.add(catalog.get(i));
+					return true;
 				}
 			}
 		}
-		
-		//add course to schedule
-		schedule.add(addedCourse);
-		return true;
+		return false;
 	}
 	/**
 	 * Remove correct course from schedule if it exists.
@@ -215,6 +225,11 @@ public class WolfScheduler {
 				if(newEvent.isDuplicate(event)) {
 					throw new IllegalArgumentException("You have already created an event called " + event.getTitle());
 				}
+			}
+			try {
+				event.checkConflict(schedule.get(i));
+			} catch(Exception e) {
+				throw new IllegalArgumentException("The event cannot be added due to a conflict.");
 			}
 		}
 		schedule.add(event);
