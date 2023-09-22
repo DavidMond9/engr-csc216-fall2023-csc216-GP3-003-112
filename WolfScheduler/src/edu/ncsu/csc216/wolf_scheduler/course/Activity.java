@@ -253,8 +253,21 @@ public abstract class Activity implements Conflict {
 	 */
 	@Override
 	public void checkConflict(Activity possibleConflictingActivity) throws ConflictException {
-		// TODO Auto-generated method stub
-		
+		for(int i = 0; i < possibleConflictingActivity.getMeetingDays().length(); i++) {
+			for(int j = 0; j < this.getMeetingDays().length(); j++) {
+				if((this.getMeetingDays().charAt(j) == possibleConflictingActivity.getMeetingDays().charAt(i)) &&
+						((this.getMeetingDays().charAt(j) != 'A') || (possibleConflictingActivity.getMeetingDays().charAt(i) != 'A'))) {
+					
+					if(possibleConflictingActivity.getStartTime() <= this.getEndTime() && possibleConflictingActivity.getEndTime() >= this.getStartTime()) {
+						throw new ConflictException();
+					}	
+					
+					if(possibleConflictingActivity.getStartTime() <= this.getStartTime() && possibleConflictingActivity.getEndTime() <= this.getStartTime()) {
+						throw new ConflictException();
+					}	
+				}
+			}
+		}
 	}
 
 
